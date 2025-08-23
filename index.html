@@ -7,5 +7,30 @@
 </head>
 <body>
     <h2>Matrix Calculator</h2>
+    <div class="matrix-container">
+        <h3>Matrix A input</h3>
+        <div class="size-input">
+            <label>row <input type="number" value="4" min="1"></label>
+            <span>×</span>
+            <label>column <input type="number" value="4" min="1"></label>
+        </div>
+        <div class="matrix-grid" style="grid-template-columns: repeat(4, 1fr);">
+            <input type="text"><input type="text"><input type="text"><input type="text">
+            <input type="text"><input type="text"><input type="text"><input type="text">
+            <input type="text"><input type="text"><input type="text"><input type="text">
+            <input type="text"><input type="text"><input type="text"><input type="text">
+        </div>
+        <div class="matrix-controls">
+            <button>Add</button>
+            <button>Subtract</button>
+            <button>Product</button>
+            <button>Scalar</button>
+            <button>Euclid norm</button>
+            <button>Taxicab norm</button>
+            <button>Max norm</button>
+            <button>Frobenius norm</button>
+        </div>
+        <h3>Matrix B input</h3>
+    </div>
 </body>
 </html>
