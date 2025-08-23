@@ -6,6 +6,7 @@ body {
 
 h2 {
     color: #1a3e7b;
+    text-align: center;
 }
 
 .matrix-container {
@@ -14,16 +15,40 @@ h2 {
     margin-bottom: 40px;
 }
 
+.matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+}
+
 .matrix-box {
     background-color: #215caf;
     padding: 15px;
     border-radius: 5px;
-    width: 500px;
+    width: 700px;
 }
 
 .matrix-box h3 {
     background-color: #e0e7f1;
-    padding: 15px;
-    border-radius: 2px;
-    width: 250px;
+    color: black;
+    padding: 5px;
+    border-radius: 3px;
+    text-align: center;
+    margin-top: 0;
+}
+
+.size-input {
+    display: flex;
+    margin-bottom: 10+px;
+    font-weight: bold;
+    justify-content: center;
+    gap: 10px;
+}
+
+.matrix-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+    justify-content: center;
 }
