@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+h2 {
+    color: #1a3e7b;
+}
+
+.matrix-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.matrix-box {
+    background-color: #215caf;
+    padding: 15px;
+    border-radius: 5px;
+    width: 500px;
+}
+
+.matrix-box h3 {
+    background-color: #e0e7f1;
+    padding: 15px;
+    border-radius: 2px;
+    width: 250px;
+}
