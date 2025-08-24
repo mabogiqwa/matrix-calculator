@@ -13,6 +13,7 @@ h2 {
     display: flex;
     gap: 20px;
     margin-bottom: 40px;
+    justify-content: center;
 }
 
 .matrix-grid {
@@ -25,7 +26,7 @@ h2 {
     background-color: #215caf;
     padding: 15px;
     border-radius: 5px;
-    width: 700px;
+    width: 300px;
 }
 
 .matrix-box h3 {
@@ -39,16 +40,66 @@ h2 {
 
 .size-input {
     display: flex;
-    margin-bottom: 10+px;
+    margin-bottom: 10px;
     font-weight: bold;
     justify-content: center;
     gap: 10px;
+    color: white;
+}
+
+.size-input input {
+    width: 50px;
+    padding: 2px;
+    text-align: center;
+}
+
+.matrix-grid input {
+    width: 60px;
+    height: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
 }
 
 .matrix-controls {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 10px;
+    gap: 10px;
+    margin-bottom: 20px;
     justify-content: center;
+}
+
+.matrix-controls button {
+    padding: 8px 15px;
+    background-color: #215caf;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.matrix-controls button:hover {
+    background-color: #1a3e7b;
+}
+
+.matrix-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.matrix-actions button {
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.matrix-actions button:hover {
+    background-color: #218838;
 }
