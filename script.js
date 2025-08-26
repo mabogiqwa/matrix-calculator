@@ -8,9 +8,9 @@ function adjust_matrix_dimensions(matrixBox, rows, cols) {
     grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`; //adjusts number of cols according to input
 
     for (let i = 0; i < rows * cols; i++) {
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.className = 'matrix-cell';
+        const input = document.createElement('input');//create new <input> element and stores it in memory
+        input.type = 'text'; //sets the type attribute of <input> to text
+        input.className = 'matrix-cell'; //assigns the class 'matrix-cell' to <input>
 
         const row = Math.floor(i/cols)+1;
         const col = (i%cols) + 1;
