@@ -27,7 +27,7 @@ function adjust_matrix_dimensions(matrixBox, rows, cols) {
 //Ensures that only values from the set of positive integers are allowed
 function number_validation(input) {
     input.addEventListener('input', () => {
-        input.value = input.value.replace(/[^0-9]/g, '');
+        input.value = input.value.replace(/[^0-4]/g, '');
 
         if (input.value.startsWith('0')) {
             input.value = input.value.replace(/^0+/, '');
