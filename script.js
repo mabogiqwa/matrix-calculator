@@ -95,4 +95,33 @@ function get_matrix_values(matrixBox) {
 function display_operation_result(matrix, operationName) {
     const resultsDiv = document.querySelector('.matrix-action-results');
     resultsDiv.innerHTML = `<h4>${operationName} Result:</h4>`;
+
+    const table = document.createElement('table');
+    table.className = 'result-matrix';
+    matrix.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach(value => {
+            const td = document.createElement('td');
+            td.textContent = value;
+            tr.appendChild(td);
+        });
+        table.appendChild(tr);
+    });
+
+    resultsDiv.appendChild(table);
 }
+
+document.querySelector('.matrix-actions button').addEventListener('click', () => {
+    const [matrixABox, matrixBBox] = document.querySelectorAll('.matrix-box');
+    const A = get_matrix_values(matrixABox);
+    const B = get_matrix_values(matrixBBox);
+
+    const result = add_matrices(A, B);
+
+    if (result.length === 0) {
+        alert("Matrices must have the same dimensions.");
+        return;
+    }
+
+    display_operation_result(result, "A + B");
+});
