@@ -1,109 +1,224 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 25%, #90caf9 50%, #64b5f6 75%, #42a5f5 100%);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fafafa;
     padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
+/* Typography */
 h2 {
-    color: #1a3e7b;
     text-align: center;
+    margin-bottom: 30px;
+    font-weight: 500;
+    font-size: 28px;
+    color: #2c3e50;
 }
 
+h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #34495e;
+}
+
+h4 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+/* Layout containers */
 .matrix-container {
     display: flex;
-    gap: 50px;
-    margin-bottom: 40px;
+    gap: 30px;
+    margin-bottom: 30px;
     justify-content: center;
-}
-
-.matrix-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-    justify-items: center;
+    flex-wrap: wrap;
 }
 
 .matrix-box {
-    background-color: #215caf;
-    padding: 10px;
-    border-radius: 20px;
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background: white;
+    border: 1px solid #e1e8ed;
+    border-radius: 8px;
+    padding: 20px;
+    min-width: 280px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
-.matrix-box h3 {
-    background-color: #e0e7f1;
-    color: black;
-    padding: 5px;
-    border-radius: 3px;
-    text-align: center;
-    margin-top: 0;
-}
-
+/* Size input controls */
 .size-input {
     display: flex;
-    margin-bottom: 5px;
-    font-weight: bold;
-    justify-content: center;
-    gap: 5px;
-    color: white;
-}
-
-.size-input input {
-    width: 50px;
-    padding: 2px;
-    text-align: center;
-}
-
-.matrix-grid input {
-    width: 60px;
-    height: 40px;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    font-size: 14px;
-}
-
-.matrix-controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    align-items: center;
+    gap: 8px;
     margin-bottom: 20px;
     justify-content: center;
 }
 
-.matrix-controls button {
-    padding: 8px 15px;
-    background-color: #215caf;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.size-input label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.size-input input {
+    width: 50px;
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
     font-size: 14px;
 }
 
-.matrix-controls button:hover {
-    background-color: #1a3e7b;
+.size-input span {
+    font-weight: 500;
+    color: #666;
 }
 
+/* Matrix grid */
+.matrix-grid {
+    display: grid;
+    gap: 8px;
+    max-width: 240px;
+    margin: 0 auto;
+}
+
+.matrix-grid input {
+    width: 100%;
+    height: 45px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    transition: border-color 0.2s ease;
+}
+
+.matrix-grid input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+
+.matrix-grid input:hover {
+    border-color: #bbb;
+}
+
+/* Button containers */
+.matrix-controls,
 .matrix-actions {
     display: flex;
-    gap: 10px;
     justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
-.matrix-actions button {
-    padding: 8px 15px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+/* Buttons */
+button {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 16px;
     font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
 }
 
-.matrix-actions button:hover {
-    background-color: #218838;
+button:hover {
+    background: #f8f9fa;
+    border-color: #bbb;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+button:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+
+/* Results section */
+.matrix-action-results {
+    background: white;
+    border: 1px solid #e1e8ed;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    min-height: 60px;
+}
+
+/* Result matrix table */
+.result-matrix {
+    margin: 15px auto 0;
+    border-collapse: collapse;
+    font-family: 'Courier New', monospace;
+}
+
+.result-matrix td {
+    border: 1px solid #ddd;
+    padding: 12px 16px;
+    text-align: center;
+    min-width: 60px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.result-matrix tr:nth-child(even) td {
+    background-color: #f9f9f9;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .matrix-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .matrix-box {
+        min-width: 250px;
+    }
+    
+    .matrix-controls,
+    .matrix-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    button {
+        width: 200px;
+    }
+}
+
+/* Focus states for accessibility */
+input:focus,
+button:focus {
+    outline: 2px solid #4a90e2;
+    outline-offset: 2px;
+}
+
+/* Subtle hover effects */
+.matrix-box:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.2s ease;
 }
