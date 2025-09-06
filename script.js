@@ -121,6 +121,43 @@ function multiply_matrices(m1, m2) {
     return result;
 }
 
+function compute_determinant(m) {
+    let determinant;
+    const rows = m.length;
+    const cols = m[0].length;
+
+    if (rows != cols) { return null; }
+
+    if (rows == 2 && cols == 2) {
+        determinant = (m[0][0] * m[1][1]) - (m[0][1] * m[1][0]);
+    }
+
+    if (rows == 3 && cols == 3) {
+        determinant =
+            m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1])
+          - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0])
+          + m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);
+    }
+
+    if (rows == 4 && cols == 4) {
+        determinant =
+            m[0][0] * ( m[1][1] * (m[2][2]*m[3][3] - m[2][3]*m[3][2])
+                      - m[1][2] * (m[2][1]*m[3][3] - m[2][3]*m[3][1])
+                      + m[1][3] * (m[2][1]*m[3][2] - m[2][2]*m[3][1]) )
+          - m[0][1] * ( m[1][0] * (m[2][2]*m[3][3] - m[2][3]*m[3][2])
+                      - m[1][2] * (m[2][0]*m[3][3] - m[2][3]*m[3][0])
+                      + m[1][3] * (m[2][0]*m[3][2] - m[2][2]*m[3][0]) )
+          + m[0][2] * ( m[1][0] * (m[2][1]*m[3][3] - m[2][3]*m[3][1])
+                      - m[1][1] * (m[2][0]*m[3][3] - m[2][3]*m[3][0])
+                      + m[1][3] * (m[2][0]*m[3][1] - m[2][1]*m[3][0]) )
+          - m[0][3] * ( m[1][0] * (m[2][1]*m[3][2] - m[2][2]*m[3][1])
+                      - m[1][1] * (m[2][0]*m[3][2] - m[2][2]*m[3][0])
+                      + m[1][2] * (m[2][0]*m[3][1] - m[2][1]*m[3][0]) );
+    }
+
+    return determinant;
+}
+
 function get_matrix_values(matrixBox) {
     const [rowInput, colInput] = matrixBox.querySelectorAll('.size-input input');
     const rows = parseInt(rowInput.value);
@@ -209,3 +246,41 @@ buttons[2].addEventListener('click', () => {
 
     display_operation_result(result, "A * B");
 });
+
+buttons[3].addEventListener('click', () => {
+    const [matrixABox] = document.querySelectorAll('.matrix-box');
+    const A = get_matrix_values(matrixABox);
+
+    const result = compute_determinant(A);
+
+    if (result == null) {
+        alert("Determinant can only be computed for square matrices.");
+        return;
+    }
+
+    display_determinant_result(result, "det(A)");
+});
+
+buttons[4].addEventListener('click', () => {
+    const [, matrixBBox] = document.querySelectorAll('.matrix-box');
+    const B = get_matrix_values(matrixBBox);
+
+    const result = compute_determinant(B);
+
+    if (result == null) {
+        alert("Determinant can only be computed for square matrices.");
+        return;
+    }
+
+    display_determinant_result(result, "det(B)");
+});
+
+function display_determinant_result(determinant, operationName) {
+    const resultsDiv = document.querySelector('.matrix-action-results');
+    resultsDiv.innerHTML = `
+        <h4>${operationName} Result:</h4>
+        <div class="determinant-result">
+            <span class="det-value">${determinant}</span>
+        </div>
+    `;
+}
