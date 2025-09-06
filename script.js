@@ -72,6 +72,29 @@ function add_matrices(m1, m2) {
     return result;
 }
 
+function subtract_matrices(m1, m2) {
+    const rowSize1 = m1.length;
+    const colSize1 = m1[0].length;
+    const rowSize2 = m2.length;
+    const colSize2 = m2[0].length;
+
+    //Ensures matrices have the same size
+    if (rowSize1 != rowSize2 || colSize1 != colSize2 || rowSize1 > 4 || colSize1 > 4) {
+        return [];
+    }
+
+    const result = [];
+    for (let i = 0; i < rowSize1; i++) {
+        const row = [];
+        for (let j = 0; j < colSize1; j++) {
+            row.push(m1[i][j] - m2[i][j]);
+        }
+        result.push(row);
+    }
+
+    return result;
+}
+
 function get_matrix_values(matrixBox) {
     const [rowInput, colInput] = matrixBox.querySelectorAll('.size-input input');
     const rows = parseInt(rowInput.value);
@@ -111,17 +134,36 @@ function display_operation_result(matrix, operationName) {
     resultsDiv.appendChild(table);
 }
 
-document.querySelector('.matrix-actions button').addEventListener('click', () => {
+const buttons = document.querySelectorAll('.matrix-actions button'); //Get all buttons and attach event listeners
+
+//Listener for addition button
+buttons[0].addEventListener('click', () => {
     const [matrixABox, matrixBBox] = document.querySelectorAll('.matrix-box');
     const A = get_matrix_values(matrixABox);
     const B = get_matrix_values(matrixBBox);
 
     const result = add_matrices(A, B);
 
-    if (result.length === 0) {
-        alert("Matrices must have the same dimensions.");
+    if (result.length == 0) {
+        alert("Matrices must have same dimensions!");
         return;
     }
 
     display_operation_result(result, "A + B");
+});
+
+//Listener for subtraction button
+buttons[1].addEventListener('click', () => {
+    const [matrixABox, matrixBBox] = document.querySelectorAll('.matrix-box');
+    const A = get_matrix_values(matrixABox);
+    const B = get_matrix_values(matrixBBox);
+
+    const result = subtract_matrices(A, B);
+
+    if (result.length == 0) {
+        alert("Matrices must have same dimensions!");
+        return;
+    }
+
+    display_operation_result(result, "A - B");
 });
