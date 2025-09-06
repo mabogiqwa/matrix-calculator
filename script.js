@@ -158,6 +158,59 @@ function compute_determinant(m) {
     return determinant;
 }
 
+function gauss_seidel(A, b, iterations) {
+    const rows = A.length;
+    const cols = A[0].length;
+
+    let x;
+
+    if (rows == 2 && cols == 2) {
+        let firstApprox, secondApprox;
+
+        x = [[0, 0]];
+
+        for (let iter = 0; iter < iterations; iter++) {
+            firstApprox = (1 / A[0][0]) * (b[0][0] - A[0][1] * x[0][1]);
+            x[0][0] = firstApprox;
+            secondApprox = (1 / A[1][1]) * (b[1][0] - A[1][0] * x[0][0]);
+            x[0][1] = secondApprox;
+        }
+    }
+
+    if (rows == 3 && cols == 3) {
+        let firstApprox, secondApprox, thirdApprox;
+
+        x = [[0, 0, 0]];
+
+        for (let iter = 0; iter < iterations; iter++) {
+            firstApprox = (1/A[0][0]) * (b[0][0] - A[0][1] * x[0][1] - A[0][2]*x[0][2]);
+            x[0][0] = firstApprox;
+            secondApprox = (1/A[1][1]) * (b[1][0] - A[1][0]*x[0][0] - A[1][2]*x[0][2]);
+            x[0][1] = secondApprox;
+            thirdApprox = (1/A[2][2]) * (b[2][0] - A[2][0]*x[0][0] - A[2][1]*x[0][1]);
+        }
+    }
+
+    if (rows == 4 && cols == 4) {
+        let firstApprox, secondApprox, thirdApprox, fourthApprox;
+
+        x = [[0,0,0,0]];
+
+        for (let iter = 0; iter < iterations; iter++) {
+            firstApprox = (1/A[0][0])*(b[0][0] - A[0][1]*x[0][1] - A[0][2]*x[0][2] - A[0][3]*x[0][3]);
+            x[0][0] = firstApprox;
+            secondApprox = (1/A[1][1])*(b[1][0] - A[1][0]*x[0][0] - A[1][2]*x[0][2] - A[1][3]*x[0][3]);
+            x[0][1] = secondApprox;
+            thirdApprox = (1/A[2][2])*(b[2][0] - A[2][0]*x[0][0] - A[2][1]*x[0][1] - A[2][3]*x[0][3]);
+            x[0][2] = thirdApprox;
+            fourthApprox = (1/A[3][3])*(b[3][0] - A[3][0]*x[0][0] - A[3][1]*x[0][1] - A[3][2]*x[0][2]);
+            x[0][3] = fourthApprox;
+        }
+    }
+
+    return x;
+}
+
 function get_matrix_values(matrixBox) {
     const [rowInput, colInput] = matrixBox.querySelectorAll('.size-input input');
     const rows = parseInt(rowInput.value);
@@ -195,6 +248,26 @@ function display_operation_result(matrix, operationName) {
     });
 
     resultsDiv.appendChild(table);
+}
+
+function transpose(m) {
+    const rows = m.length;
+    const cols = m[0].length;
+
+    //const result = Array.from({ length: cols }, () => Array(rows).fill(0));
+    if (rows == 0 || cols == 0) 
+        return [];
+
+    const result = [];
+    for (let i = 0; i < cols; i++) {
+        const row = [];
+        for (let j = 0; j < rows; j++) {
+            row.push(m[j][i]);
+        }
+        result.push(row);
+    }
+
+    return result;
 }
 
 const buttons = document.querySelectorAll('.matrix-actions button'); //Get all buttons and attach event listeners
@@ -273,6 +346,24 @@ buttons[4].addEventListener('click', () => {
     }
 
     display_determinant_result(result, "det(B)");
+});
+
+buttons[5].addEventListener('click', () => {
+    const [matrixABox] = document.querySelectorAll('.matrix-box');
+    const A = get_matrix_values(matrixABox);
+
+    const result = transpose(A);
+
+    display_operation_result(result, "Transpose(A)");
+});
+
+buttons[6].addEventListener('click', () => {
+    const [, matrixBBox] = document.querySelectorAll('.matrix-box');
+    const B = get_matrix_values(matrixBBox);
+
+    const result = transpose(B);
+
+    display_operation_result(result, "Transpose(B)");
 });
 
 function display_determinant_result(determinant, operationName) {
