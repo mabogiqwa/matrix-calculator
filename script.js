@@ -95,6 +95,32 @@ function subtract_matrices(m1, m2) {
     return result;
 }
 
+function multiply_matrices(m1, m2) {
+    const rowSize1 = m1.length;
+    const colSize1 = m1[0].length;
+    const colSize2 = m2[0].length;
+
+    if (colSize1 != m2.length) {
+        return [];
+    }
+
+    const result = [];
+
+    for (let i = 0; i < rowSize1; i++) {
+        const row = [];
+        for (let j = 0; j < colSize2; j++) {
+            let sum = 0;
+            for (let k = 0; k < colSize1; k++) {
+                sum += m1[i][k] * m2[k][j];
+            }
+            row.push(sum);
+        }
+        result.push(row);
+    }
+
+    return result;
+}
+
 function get_matrix_values(matrixBox) {
     const [rowInput, colInput] = matrixBox.querySelectorAll('.size-input input');
     const rows = parseInt(rowInput.value);
@@ -166,4 +192,20 @@ buttons[1].addEventListener('click', () => {
     }
 
     display_operation_result(result, "A - B");
+});
+
+//Listener for matrix multiplication
+buttons[2].addEventListener('click', () => {
+    const [matrixABox, matrixBBox] = document.querySelectorAll('.matrix-box');
+    const A = get_matrix_values(matrixABox);
+    const B = get_matrix_values(matrixBBox);
+
+    const result = multiply_matrices(A, B);
+
+    if (result.length == 0) {
+        alert("size of columns of A != size of rows of B");
+        return;
+    }
+
+    display_operation_result(result, "A * B");
 });
