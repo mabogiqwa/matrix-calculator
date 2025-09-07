@@ -188,6 +188,7 @@ function gauss_seidel(A, b, iterations) {
             secondApprox = (1/A[1][1]) * (b[1][0] - A[1][0]*x[0][0] - A[1][2]*x[0][2]);
             x[0][1] = secondApprox;
             thirdApprox = (1/A[2][2]) * (b[2][0] - A[2][0]*x[0][0] - A[2][1]*x[0][1]);
+            x[0][2] = thirdApprox;
         }
     }
 
@@ -213,10 +214,10 @@ function gauss_seidel(A, b, iterations) {
 
 function scalar_multiplication(scalar, m) {
     const result = [];
-    for (let i = 0; i < matrix.length; i++) {
+    for (let i = 0; i < m.length; i++) {
         const row = [];
-        for (let j = 0; j < matrix[i].length; j++) {
-            row.push(scalar * matrix[i][j]);
+        for (let j = 0; j < m[i].length; j++) {
+            row.push(scalar * m[i][j]);
         }
         result.push(row);
     }
@@ -229,15 +230,104 @@ function compute_inverse(m) {
     let result = [[]];
     let determinant;
 
-    det = compute_determinant(m);
+    determinant = compute_determinant(m);
 
-    if ((det != 0) ** (rows == cols)) {
+    if ((determinant != 0) && (rows == cols)) {
         if ((rows == 2) && (cols == 2)) {
             const scalar = 1.0/(m[0][0]*m[1][1] - m[0][1]*m[1][0]);
             result = [[m[1][1], -m[0][1]], [-m[1][0], m[0][0]]];
             result = scalar_multiplication(scalar, result);
         }
+
+        if ((rows == 3) && (cols == 3)) {
+            //standard vectors
+            const a_1 = [[1],[0],[0]];
+            const a_2 = [[0],[1],[0]];
+            const a_3 = [[0],[0],[1]];
+
+            const col1 = gauss_seidel(m, a_1, 50);
+            const col2 = gauss_seidel(m, a_2, 50);
+            const col3 = gauss_seidel(m, a_3, 50);
+            
+            return [[col1[0][0], col2[0][0], col3[0][0]],
+                    [col1[0][1], col2[0][1], col3[0][1]],
+                    [col1[0][2], col2[0][2], col3[0][2]]];
+        }
+
+        if ((rows == 4) && (cols == 4)) {
+            const a_1 = [[1],[0],[0],[0]];
+            const a_2 = [[0],[1],[0],[0]];
+            const a_3 = [[0],[0],[1],[0]];
+            const a_4 = [[0],[0],[0],[1]];
+
+            const col1 = gauss_seidel(m, a_1, 50);
+            const col2 = gauss_seidel(m, a_2, 50);
+            const col3 = gauss_seidel(m, a_3, 50);
+            const col4 = gauss_seidel(m, a_4, 50);
+
+            return [[col1[0][0], col2[0][0], col3[0][0], col4[0][0]],
+                    [col1[0][1], col2[0][1], col3[0][1], col4[0][1]],
+                    [col1[0][2], col2[0][2], col3[0][2], col4[0][2]],
+                    [col1[0][3], col2[0][3], col3[0][3], col4[0][3]]];
+        }
+
+        if ((rows == 5) && (cols == 5)) {
+            const a_1 = [[1],[0],[0],[0],[0]];
+            const a_2 = [[0],[1],[0],[0],[0]];
+            const a_3 = [[0],[0],[1],[0],[0]];
+            const a_4 = [[0],[0],[0],[1],[0]];
+            const a_5 = [[0],[0],[0],[0],[1]];
+
+            const col1 = gauss_seidel(m, a_1, 50);
+            const col2 = gauss_seidel(m, a_2, 50);
+            const col3 = gauss_seidel(m, a_3, 50);
+            const col4 = gauss_seidel(m, a_4, 50);
+            const col5 = gauss_seidel(m, a_5, 50);
+
+            return [[col1[0][0], col2[0][0], col3[0][0], col4[0][0], col5[0][0]],
+                    [col1[0][1], col2[0][1], col3[0][1], col4[0][1], col5[0][1]],
+                    [col1[0][2], col2[0][2], col3[0][2], col4[0][2], col5[0][2]],
+                    [col1[0][3], col2[0][3], col3[0][3], col4[0][3], col5[0][3]],
+                    [col1[0][4], col2[0][4], col3[0][4], col4[0][4], col5[0][4]]];
+        }
+    } else {
+        console.log("Matrix is singular or matrix is not square");
+        return [[]];
     }
+
+    return result;
+}
+
+function display_inverse_result(matrix, operationName) {
+    const resultsDiv = document.querySelector('.matrix-action-results');
+
+    if (!matrix || matrix.length == 0 || (matrix.length == 1 && matrix[0].length == 0)) {
+        resultsDiv.innerHTML = `
+            <h4>${operationName} Result:</h4>
+            <div class="error-message" style="color: red; padding: 10px; background-color: #ffe6e6; border-radius: 5px;">
+                Cannot compute inverse: Matrix is singular or not square
+            </div>`;
+        return;
+    }
+
+    resultsDiv.innerHTML = `<h4>${operationName} Result:</h4>`;
+
+    const table = document.createElement('table');
+    table.className = 'result-matrix';
+    table.style.cssText = "border-collapse: collapse; margin: 10px 0;";
+
+    matrix.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach(value => {
+            const td = document.createElement('td');
+            td.style.cssText = "border: 1px solid #ddd; padding: 8px; text-align: center; min-width: 80px;";
+            td.textContent = typeof value == 'number' ? value.toFixed(6) : value;
+            tr.appendChild(td);
+        });
+        table.appendChild(tr);
+    });
+
+    resultsDiv.appendChild(table);
 }
 
 function get_matrix_values(matrixBox) {
@@ -393,6 +483,22 @@ buttons[6].addEventListener('click', () => {
     const result = transpose(B);
 
     display_operation_result(result, "Transpose(B)");
+});
+
+buttons[7].addEventListener('click', () => {
+    const [matrixABox] = document.querySelectorAll('.matrix-box');
+    const A = get_matrix_values(matrixABox);
+
+    const result = compute_inverse(A);
+    display_inverse_result(result, "Inverse(A)");
+});
+
+buttons[8].addEventListener('click', () => {
+    const [, matrixBBox] = document.querySelectorAll('.matrix-box');
+    const B = get_matrix_values(matrixBBox);
+
+    const result = compute_inverse(B);
+    display_inverse_result(result, "Inverse(B)");
 });
 
 function display_determinant_result(determinant, operationName) {
