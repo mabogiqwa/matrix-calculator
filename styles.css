@@ -188,6 +188,38 @@ button:focus {
     background-color: #f9f9f9;
 }
 
+.scalar-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.scalar-section label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.scalar-input {
+    width: 80px;
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.scalar-input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     .matrix-container {
