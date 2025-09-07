@@ -211,6 +211,35 @@ function gauss_seidel(A, b, iterations) {
     return x;
 }
 
+function scalar_multiplication(scalar, m) {
+    const result = [];
+    for (let i = 0; i < matrix.length; i++) {
+        const row = [];
+        for (let j = 0; j < matrix[i].length; j++) {
+            row.push(scalar * matrix[i][j]);
+        }
+        result.push(row);
+    }
+    return result;
+}
+
+function compute_inverse(m) {
+    const rows = m.length;
+    const cols = m[0].length;
+    let result = [[]];
+    let determinant;
+
+    det = compute_determinant(m);
+
+    if ((det != 0) ** (rows == cols)) {
+        if ((rows == 2) && (cols == 2)) {
+            const scalar = 1.0/(m[0][0]*m[1][1] - m[0][1]*m[1][0]);
+            result = [[m[1][1], -m[0][1]], [-m[1][0], m[0][0]]];
+            result = scalar_multiplication(scalar, result);
+        }
+    }
+}
+
 function get_matrix_values(matrixBox) {
     const [rowInput, colInput] = matrixBox.querySelectorAll('.size-input input');
     const rows = parseInt(rowInput.value);
