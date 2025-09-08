@@ -30,11 +30,30 @@ function adjust_matrix_dimensions(matrixBox, rows, cols) {
 //Ensures that only values from the set of positive integers are allowed
 function number_validation(input) {
     input.addEventListener('input', () => {
-        input.value = input.value.replace(/[^0-9]/g, '');
+        input.value = input.value.replace(/[^0-9.-]/g, ''); //regex pattern that allows numbers, decimals, negative signs
 
-        if (input.value.startsWith('0')) {
-            input.value = input.value.replace(/^0+/, '');
+        const negativeCount = (value.match(/-/g) || []).length;
+        if (negativeCount > 1) {
+            if (value.charAt(0) == '-') {
+                value = '-' + value.substring(1).replace(/-/g, '');
+            } else {
+                value = value.replace(/-/g, '');
+            }
         }
+
+        //handles multiple decimal points
+        const decimalCount = (value.match(/\./g) || []).length;
+        if (decimalCount > 1) {
+            const firstDotIndex = value.indexOf('.');
+            value = value.substring(0, firstDotIndex + 1) + value.substring(firstDotIndex + 1).replace(/\./g, '');
+        }
+
+        const negativeIndex = value.indexOf('-');
+        if (negativeIndex > 0) {
+            value = value.replace('-', '');
+        }
+
+        input.value = value;
     });
 }
 
