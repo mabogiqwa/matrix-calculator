@@ -472,6 +472,21 @@ buttons[2].addEventListener('click', () => {
 });
 
 buttons[3].addEventListener('click', () => {
+    const [matrixABox, matrixBBox] = document.querySelectorAll('.matrix-box');
+    const A = get_matrix_values(matrixABox);
+    const B = get_matrix_values(matrixBBox);
+
+    const result = multiply_matrices(B, A);
+
+    if (result.length == 0) {
+        alert("size of columns of B != size of rows of A");
+        return;
+    }
+
+    display_operation_result(result, "B * A");
+});
+
+buttons[4].addEventListener('click', () => {
     const [matrixABox] = document.querySelectorAll('.matrix-box');
     const A = get_matrix_values(matrixABox);
 
@@ -485,7 +500,7 @@ buttons[3].addEventListener('click', () => {
     display_determinant_result(result, "det(A)");
 });
 
-buttons[4].addEventListener('click', () => {
+buttons[5].addEventListener('click', () => {
     const [, matrixBBox] = document.querySelectorAll('.matrix-box');
     const B = get_matrix_values(matrixBBox);
 
@@ -499,7 +514,7 @@ buttons[4].addEventListener('click', () => {
     display_determinant_result(result, "det(B)");
 });
 
-buttons[5].addEventListener('click', () => {
+buttons[6].addEventListener('click', () => {
     const [matrixABox] = document.querySelectorAll('.matrix-box');
     const A = get_matrix_values(matrixABox);
 
@@ -508,7 +523,7 @@ buttons[5].addEventListener('click', () => {
     display_operation_result(result, "Transpose(A)");
 });
 
-buttons[6].addEventListener('click', () => {
+buttons[7].addEventListener('click', () => {
     const [, matrixBBox] = document.querySelectorAll('.matrix-box');
     const B = get_matrix_values(matrixBBox);
 
@@ -517,7 +532,7 @@ buttons[6].addEventListener('click', () => {
     display_operation_result(result, "Transpose(B)");
 });
 
-buttons[7].addEventListener('click', () => {
+buttons[8].addEventListener('click', () => {
     const [matrixABox] = document.querySelectorAll('.matrix-box');
     const A = get_matrix_values(matrixABox);
 
@@ -525,7 +540,7 @@ buttons[7].addEventListener('click', () => {
     display_inverse_result(result, "Inverse(A)");
 });
 
-buttons[8].addEventListener('click', () => {
+buttons[9].addEventListener('click', () => {
     const [, matrixBBox] = document.querySelectorAll('.matrix-box');
     const B = get_matrix_values(matrixBBox);
 
