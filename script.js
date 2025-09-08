@@ -30,7 +30,7 @@ function adjust_matrix_dimensions(matrixBox, rows, cols) {
 //Ensures that only values from the set of positive integers are allowed
 function number_validation(input) {
     input.addEventListener('input', () => {
-        input.value = input.value.replace(/[^0-9.-]/g, ''); //regex pattern that allows numbers, decimals, negative signs
+        let value = input.value.replace(/[^0-9.-]/g, ''); //regex pattern that allows numbers, decimals, negative signs
 
         const negativeCount = (value.match(/-/g) || []).length;
         if (negativeCount > 1) {
@@ -55,6 +55,13 @@ function number_validation(input) {
 
         input.value = value;
     });
+}
+
+//retrieves scalar value from matrix box
+function get_scalar_value(matrixBox) {
+    const scalarInput = matrixBox.querySelector('.scalar-input');
+
+    return parseFloat(scalarInput.value) || 1;
 }
 
 //Attaches a signal/listeners for row/column inputs in both matrices/grids
@@ -353,6 +360,7 @@ function get_matrix_values(matrixBox) {
     const [rowInput, colInput] = matrixBox.querySelectorAll('.size-input input');
     const rows = parseInt(rowInput.value);
     const cols = parseInt(colInput.value);
+    const scalar = get_scalar_value(matrixBox);
 
     const inputs = matrixBox.querySelectorAll('.matrix-grid input');
     const matrix = [];
@@ -361,7 +369,8 @@ function get_matrix_values(matrixBox) {
         const row = [];
         for (let c = 0; c < cols; c++) {
             const index = r * cols + c;
-            row.push(parseInt(inputs[index].value) || 0);
+            const value = parseFloat(inputs[index].value) || 0;
+            row.push(scalar * value);
         }
         matrix.push(row);
     }
@@ -375,11 +384,15 @@ function display_operation_result(matrix, operationName) {
 
     const table = document.createElement('table');
     table.className = 'result-matrix';
+    table.style.cssText = "border-collapse: collapse; margin: 10px 0";
+
     matrix.forEach(row => {
         const tr = document.createElement('tr');
         row.forEach(value => {
             const td = document.createElement('td');
-            td.textContent = value;
+            td.style.cssText = "border: 1px solid #ddd; padding: 8px; text-align: center; min-width: 80px;";
+            
+            td.textContent = typeof value == 'number' ? parseFloat(value.toFixed(6)).toString() : value;
             tr.appendChild(td);
         });
         table.appendChild(tr);
@@ -525,7 +538,7 @@ function display_determinant_result(determinant, operationName) {
     resultsDiv.innerHTML = `
         <h4>${operationName} Result:</h4>
         <div class="determinant-result">
-            <span class="det-value">${determinant}</span>
+            <span class="det-value">${parseFloat(determinant.toFixed(6)).toString()}</span>
         </div>
     `;
 }
