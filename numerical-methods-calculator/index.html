@@ -11,19 +11,41 @@
                 <h3>Matrix A Input</h3>
                 <div class="size-input">
                     <label>Size: <input type="number" id="matrix-size" value="3" min="2" max="5"></label>
-                    <span>× <span id="size-display">3</span></span>
+                    <span><span id="size-display">3</span></span>
                 </div>
                 <div class="matrix-grid" id="matrix-grid" style="grid-template-columns: repeat(3, 1fr);">
-                    
+                </div>
+                <div class="vector-input">
+                    <label for="b-vector">Vector b (comma-separated):</label>
+                    <input type="text" id="b-vector" placeholder="1, 1, 1" value="1, 1, 1">
+                </div>
+                <div class="vector-input">
+                    <label for="initial-vector">Initial Vector x_0 (comma-separated):</label>
+                    <input type="text" id="initial-vector" placeholder="1, 1, 1" value="1, 1, 1">
                 </div>
             </div>
         </div>
+
+        <div class="method-controls">
+            <h4>Method Params</h4>
+            <div class="control-group">
+                <label for="max-iterations">Max Iterations:</label>
+                <input type="number" id="max-iterations" value="50" min="1" max="50">
+            </div>
+        </div>
+
         <div class="method-actions">
             <button id="jacobi-btn">Jacobi Method</button>
             <button id="gauss-seidel-btn">Gauss-Seidel</button>
             <button id="power-method-btn">Power Method</button>
-            <button id="inverse-power-btn">Inverse Power Method</button>
+            <button id="inverse-power-btn">Inverse Power</button>
         </div>
+
+        <div class="method-results" id="results">
+            <h4>Results</h4>
+            <div id="results-content"></div>
+        </div>
+
     <script src="script.js"></script>
     </body>
 </html>
