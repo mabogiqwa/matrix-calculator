@@ -32,18 +32,6 @@ matrix-calculator/
     └── styles.css          # Styling for numerical methods
 ```
 
-## Getting Started
-
-### Prerequisites
-- Modern web browser (Chrome, Firefox, Safari, Edge)
-- No additional installations required
-
-### Running the Application
-
-1. **Clone or download** the project files
-2. **Open `index.html`** in your web browser to access the main matrix calculator
-3. **Navigate to numerical methods** by clicking the "Iterative Methods Calculator" link
-
 ## Usage Guide
 
 ### Basic Matrix Calculator
