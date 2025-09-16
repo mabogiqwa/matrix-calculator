@@ -149,7 +149,6 @@ Potential improvements could include:
 - Determining the basis of a matrix
 - Determining the characteristic polynomial for 2x2 - 4x4 matrices
 - Export/import functionality for matrices
-- Step-by-step solution display
 - Complex number support
 - Creating a CLI interface which can save matrix computations
 
