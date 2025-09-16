@@ -124,7 +124,8 @@ matrix-calculator/
 This calculator was specifically created to aid in problem-solving for various mathematics modules, including:
 - **APM1513** (Applied Mathematics)
 - **APM2613** (Numerical Methods)
-- **APM3706** (Advanced Numerical Methods)
+- **APM3711** (Numerical Methods II)
+- **APM3706** (Ordinary Differential Equations)
 - **MAT1503** (Linear Algebra)
 - **MAT2611** (Advanced Linear Algebra)
 - **MAT3701** (Abstract Algebra)
