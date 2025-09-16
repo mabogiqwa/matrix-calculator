@@ -145,9 +145,13 @@ Potential improvements could include:
 - Larger matrix support (beyond 5×5)
 - LU decomposition methods
 - QR decomposition for eigenvalue problems
+- Determining the rank of a matrix
+- Determining the basis of a matrix
+- Determining the characteristic polynomial for 2x2 - 4x4 matrices
 - Export/import functionality for matrices
 - Step-by-step solution display
 - Complex number support
+- Creating a CLI interface which can save matrix computations
 
 ## License
 
